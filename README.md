@@ -59,7 +59,7 @@ Note: Copy the license from loader to the burpsuite > manual activation > copy b
      right click the desktop -> create a launcher name it Burpsuite Professional, add command `burpsuitepro` and select burpsuite community icon.
 
 <div align="center">
- <img width="500" height="500" src="https://github.com/denoyey/BurpsuitePro/blob/main/Launcher.jpg">
+ <img width="500" height="500" src="https://github.com/denoyey/BurpsuitePro/Launcher.jpg">
 </div>
 
 # <h1 align="center"> Windows Installation</h1>
