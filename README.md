@@ -48,8 +48,7 @@ sudo update-alternatives --config java
 - ### Setup Licenses
 
 <div align="center">
- 
-https://github.com/denoyey/BurpsuitePro/assets/117867334/c25831a4-68a2-44ee-b6dd-5ff18165f340
+ <img src="https://github.com/denoyey/BurpsuitePro/blob/ee5ddaed3df3a206e2587e5e8abd5b538500bbec/Launcher.png" />
 </div>
  
 Note: Copy the license from loader to the burpsuite > manual activation > copy burpsuite request key to loader request >  copy response key to the burpsuite.
@@ -59,7 +58,7 @@ Note: Copy the license from loader to the burpsuite > manual activation > copy b
      right click the desktop -> create a launcher name it Burpsuite Professional, add command `burpsuitepro` and select burpsuite community icon.
 
 <div align="center">
- https://github.com/denoyey/BurpsuitePro/blob/ee5ddaed3df3a206e2587e5e8abd5b538500bbec/Launcher.png
+ <img src="https://github.com/denoyey/BurpsuitePro/blob/ee5ddaed3df3a206e2587e5e8abd5b538500bbec/Launcher.png" />
 </div>
 
 # <h1 align="center"> Windows Installation</h1>
