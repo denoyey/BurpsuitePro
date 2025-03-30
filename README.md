@@ -14,6 +14,10 @@
 
 <br>
 
+![Screenshot_2024-09-19_17_45_09](https://github.com/denoyey/BurpsuitePro/blob/05c541e774b6ee51e0911e3fe5893d029268e905/Web-BurpsuitePro.png)
+
+<br>
+
 <h1 align="center"> Linux Installation </h1>
 
 <br></br>
@@ -64,7 +68,9 @@ Note: Copy the license from loader to the burpsuite > manual activation > copy b
  <img src="https://github.com/denoyey/BurpsuitePro/blob/ee5ddaed3df3a206e2587e5e8abd5b538500bbec/Launcher.png" />
 </div>
 
-# <h1 align="center"> Windows Installation</h1>
+<br><br>
+
+<h1 align="center"> Windows Installation</h1>
 
 <br>
  
@@ -98,6 +104,7 @@ Note: Copy the license from loader to the burpsuite > manual activation > copy b
 
       C:\ProgramData\Microsoft\Windows\Start Menu\Programs\
 
+<br>
 
 <h3 align="left" >
  <details><summary>Credits</summary>
