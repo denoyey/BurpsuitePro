@@ -2,13 +2,15 @@
 
 # <h1 align="center"> Burpsuite Professional v2025 latest </h1>
 
-<p align="center"> Burp Suite Professional is the web security tester's toolkit of choice. Use it to automate repetitive testing tasks - then dig deeper with its expert-designed manual and semi-automated security testing tools. Burp Suite Professional can help you to test for OWASP Top 10 vulnerabilities - as well as the very latest hacking techniques. Advanced manual and automated features empower users to find lurking vulnerabilities more quickly. Burp Suite is designed and used by the industry's best.</p>
+<p align="center"> Burp Suite Professional is a security tool for testing web applications. It allows users to monitor and modify data traffic between the browser and the server, search for vulnerabilities like SQL injection or XSS, and conduct attacks to test security. Burp Suite Professional includes features like Proxy, Scanner, Intruder, Repeater, and Decoder to analyze and identify security issues. This paid version is more comprehensive than the free version and is widely used by security professionals to secure web applications.</p>
+
+<br>
 
 <h1 align="center">
+ <a href="https://portswigger.net/burp/pro">Web BurpsuitePro</a>
+</h1>
 
-[Overview](https://portswigger.net/burp/pro)
- </h1>
- 
+
 <br></br>
 
 <h1 align="center"> Linux Installation </h1>
@@ -96,14 +98,11 @@ Note: Copy the license from loader to the burpsuite > manual activation > copy b
       C:\ProgramData\Microsoft\Windows\Start Menu\Programs\
 
 
-<h1 align="center" >
-
-
- <details><summary>Credits 👇</summary>
-
+<h4 align="center" >
+ <details><summary>Credits</summary>
 
 * Loader.jar 👉 [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)
-* Modified 👉 [cyb3rzest](https://github.com/cyb3rzest/Burp-Suite-Pro)
+* Modified 👉 [denoyey](https://github.com/denoyey/BurpsuitePro)
 
 </details>
-</h1>
+</h4>
