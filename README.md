@@ -18,7 +18,7 @@
 
 <br>
 
-<h1 align="center"> Linux Installation </h1>
+<h2 align="center"> Linux Installation </h2>
 
 <br>
 
