@@ -20,37 +20,29 @@
 
 <h1 align="center"> Linux Installation </h1>
 
-<br></br>
+<br>
 
-- ### Auto Install
+### Auto Install
 ```sh
 wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/main/install.sh | sudo bash
 ```
-- ### Run
+
+### Run
 ```sh
 burpsuitepro
 ```
-<details><summary>
 
 ### Update
-</summary>
-
 > optional
 ```sh
 cd && rm -rf BurpsuitePro && wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/refs/heads/main/update.sh | sudo bash
 ```
-</details>
-
-<details><summary>
 
 ### Java Version
-</summary>
-
 > select the default java version
 ```sh
 sudo update-alternatives --config java
 ```               
-</details>
 
 - ### Setup Licenses
 
