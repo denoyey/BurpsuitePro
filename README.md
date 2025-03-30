@@ -1,4 +1,4 @@
-![Screenshot_2024-09-19_17_45_09](https://github.com/user-attachments/assets/873ef98a-48e0-445b-b5dc-eb5959ad5b34)
+![Screenshot_2024-09-19_17_45_09](https://github.com/denoyey/BurpsuitePro/blob/49c5bb9d4564464363ae42071cf9042f81c37dec/BurpsuitePro-v2025.png)
 
 # <h1 align="center"> Burpsuite Professional v2025 latest </h1>
 
@@ -98,11 +98,11 @@ Note: Copy the license from loader to the burpsuite > manual activation > copy b
       C:\ProgramData\Microsoft\Windows\Start Menu\Programs\
 
 
-<h4 align="center" >
+<h3 align="left" >
  <details><summary>Credits</summary>
 
-* Loader.jar 👉 [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)
-* Modified 👉 [denoyey](https://github.com/denoyey/BurpsuitePro)
+#### Loader.jar by - [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)
+#### Modified by - [denoyey](https://github.com/denoyey/BurpsuitePro)
 
 </details>
 </h4>
