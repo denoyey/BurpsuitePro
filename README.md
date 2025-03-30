@@ -22,29 +22,29 @@
 
 <br>
 
-### Auto Install
+#### Auto Install
 ```sh
 wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/main/install.sh | sudo bash
 ```
 
-### Run
+#### Run
 ```sh
 burpsuitepro
 ```
 
-### Update
+#### Update
 > optional
 ```sh
 cd && sudo rm -rf BurpsuitePro && wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/refs/heads/main/update.sh | sudo bash
 ```
 
-### Java Version
+#### Java Version
 > select the default java version
 ```sh
 sudo update-alternatives --config java
 ```               
 
-- ### Setup Licenses
+- #### Setup Licenses
 
 <div align="center">
  <img src="https://github.com/denoyey/BurpsuitePro/blob/ee5ddaed3df3a206e2587e5e8abd5b538500bbec/Launcher.png" />
@@ -52,7 +52,7 @@ sudo update-alternatives --config java
  
 Note: Copy the license from loader to the burpsuite > manual activation > copy burpsuite request key to loader request >  copy response key to the burpsuite.
 
-- ### Create a Launcher (xfce)
+- #### Create a Launcher (xfce)
 
      right click the desktop -> create a launcher name it Burpsuite Professional, add command `burpsuitepro` and select burpsuite community icon.
 
