@@ -35,7 +35,7 @@ burpsuitepro
 ### Update
 > optional
 ```sh
-cd && rm -rf BurpsuitePro && wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/refs/heads/main/update.sh | sudo bash
+cd && sudo rm -rf BurpsuitePro && wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/refs/heads/main/update.sh | sudo bash
 ```
 
 ### Java Version
