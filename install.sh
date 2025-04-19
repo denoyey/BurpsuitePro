@@ -9,7 +9,7 @@ sudo apt install git axel openjdk-21-jre openjdk-22-jre openjdk-23-jre -y
 git clone https://github.com/denoyey/BurpsuitePro.git
 cd BurpsuitePro
 
-# Mendownload BurpsuitePro Terbaru
+# Mendownload BurpsuitePro Terbaru.
 echo "Proses mendownload BurpSuitePro versi terbaru..."
 version=2025.3.2
 url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$version"
