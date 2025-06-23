@@ -11,7 +11,7 @@ cd BurpsuitePro
 
 # Mendownload BurpsuitePro Terbaru.
 echo "Proses mendownload BurpSuitePro versi terbaru..."
-version=2025.3.4
+version=2025.5.4
 url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$version"
 axel "$url" -o "burpsuite_pro_v$version.jar"
 
