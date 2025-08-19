@@ -1,4 +1,5 @@
 #!/bin/bash
+# Github: github.com/denoyey/BurpsuitePro.git
 
 os_type=$(uname | tr '[:upper:]' '[:lower:]')
 
