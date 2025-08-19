@@ -4,6 +4,30 @@
 
 <p align="left">
 Burp Suite Professional is a powerful tool used for security testing of web applications. It helps professionals analyze, intercept, and manipulate HTTP/S traffic between the browser and the target application. Packed with features such as Proxy, Scanner, Repeater, Intruder, and more, it enables users to detect and exploit common vulnerabilities like SQL injection, XSS, and CSRF. This version is fully unlocked and intended for ethical hacking and educational purposes.
+
+<div align="left">
+
+![Build](https://img.shields.io/badge/build-stable-28a745?style=for-the-badge&logo=github)
+![Platform](https://img.shields.io/badge/platform-Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Windows-00adef?style=for-the-badge&logo=windows&logoColor=white)
+![Last Commit](https://img.shields.io/github/last-commit/denoyey/BurpsuitePro?style=for-the-badge&logo=git)
+![Language](https://img.shields.io/github/languages/top/denoyey/BurpsuitePro?style=for-the-badge&color=informational)
+![Technologies](https://img.shields.io/badge/technologies-Bash%20%7C%20PowerShell-yellow?style=for-the-badge&logo=terminal)
+![Stars](https://img.shields.io/github/stars/denoyey/BurpsuitePro?style=for-the-badge&color=ffac33&logo=github)
+![Forks](https://img.shields.io/github/forks/denoyey/BurpsuitePro?style=for-the-badge&color=blueviolet&logo=github)
+![Issues](https://img.shields.io/github/issues/denoyey/BurpsuitePro?style=for-the-badge&logo=github)
+![Contributors](https://img.shields.io/github/contributors/denoyey/BurpsuitePro?style=for-the-badge&color=9c27b0)
+
+<br />
+
+<img src="https://api.visitorbadge.io/api/VisitorHit?user=denoyey&repo=BurpsuitePro&countColor=%237B1E7A&style=flat-square" alt="visitors"/>
+
+</div>
+
+</p>
+
+<p align="center">
+  <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/BurpsuitePro-v2025.png" alt="BurpSuitePro Interface"/>
 </p>
 
 ## 📚 Table of Contents
@@ -21,12 +45,6 @@ Burp Suite Professional is a powerful tool used for security testing of web appl
   - [🎨 Change Icon](#-change-icon)
   - [📂 Add to Start Menu](#-add-to-start-menu)
 - [🙌 Credits](#-credits)
-
----
-
-<p align="center">
-  <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/BurpsuitePro-v2025.png" alt="BurpSuitePro Interface"/>
-</p>
 
 ## 🌐 Official Website
 
