@@ -1,30 +1,44 @@
-<h2 align="center">BurpSuite Professional v2025 (Latest Version)</h2>
+## 🔰 Introduction
 
-<p align="center">
+**BurpSuite Professional v2025 (Latest Version)**
+
+<p align="left">
 Burp Suite Professional is a powerful tool used for security testing of web applications. It helps professionals analyze, intercept, and manipulate HTTP/S traffic between the browser and the target application. Packed with features such as Proxy, Scanner, Repeater, Intruder, and more, it enables users to detect and exploit common vulnerabilities like SQL injection, XSS, and CSRF. This version is fully unlocked and intended for ethical hacking and educational purposes.
 </p>
 
-<br>
+## 📚 Table of Contents
+
+- [🔰 Introduction](#-introduction)
+- [🌐 Official Website](#-official-website)
+- [💻 Linux Installation](#-linux-installation)
+  - [🔧 Installation (Recommended)](#-installation-recommended)
+  - [☕ Select Java Version](#-select-java-version)
+  - [🔑 Setup License](#-setup-license)
+  - [📌 Create Desktop Launcher (XFCE)](#-create-desktop-launcher-xfce)
+- [🪟 Windows Installation](#-windows-installation)
+  - [📁 Setup](#-setup)
+  - [⚙️ PowerShell Setup](#-powershell-setup)
+  - [🎨 Change Icon](#-change-icon)
+  - [📂 Add to Start Menu](#-add-to-start-menu)
+- [🙌 Credits](#-credits)
+
+---
 
 <p align="center">
   <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/BurpsuitePro-v2025.png" alt="BurpSuitePro Interface"/>
 </p>
 
----
+## 🌐 Official Website
 
-<h2 align="center">
-  <a href="https://portswigger.net/burp/pro">Official Website</a>
-</h2>
+Visit the official BurpSuitePro site: [https://portswigger.net/burp/pro](https://portswigger.net/burp/pro)
 
 <p align="center">
   <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/Web-BurpsuitePro.png" alt="BurpSuite Website"/>
 </p>
 
----
-
 <h2 align="center">💻 Linux Installation</h2>
 
-### Installation (Recommended)
+### 🔧 Installation (Recommended)
 > Clone and install directly
 ```bash
 git clone https://github.com/denoyey/BurpsuitePro.git
@@ -32,9 +46,84 @@ cd BurpsuitePro
 ./run.bash
 ```
 
-###  Select Java Version
+###  ☕ Select Java Version
 > If you have multiple versions of Java installed (e.g., Java 17 and Java 21), you can manually select the default version by running:
 ```
 sudo update-alternatives --config java
 ```
 This command will display a list of installed Java versions. Enter the corresponding number to set your preferred version as the system default.
+
+### 🔑 Setup License
+Follow these steps to activate your license:
+- Open **BurpSuitePro**
+- Go to **Manual Activation**
+- Copy the **Request Key** from BurpSuite
+- Paste it into the loader
+- Copy the **Response Key** from loader
+- Paste it back into BurpSuite
+
+### 📌 Create Desktop Launcher (XFCE)
+
+You can easily launch BurpSuitePro from your desktop by creating a launcher:
+
+1. **Right-click** on your desktop and choose **"Create Launcher"**
+2. Set the following:
+   - **Name**: `BurpSuite Professional`
+   - **Command**: `directory/burpsuitepro`
+3. Click the icon box and **select the BurpSuite icon** (usually located in your install folder)
+
+> ✅ This allows you to launch BurpSuitePro just like a native application.
+
+<br>
+
+<div align="center">
+  <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/Launcher.png" alt="BurpSuite Desktop Launcher Example" width="600"/>
+</div>
+
+<h2 align="center">🪟 Windows Installation</h2>
+
+### 📁 Setup
+
+1. Create a folder: `C:\Burp`
+2. Download the [repository as ZIP](https://github.com/denoyey/BurpsuitePro/archive/refs/heads/main.zip)
+3. Extract all contents into `C:\Burp`
+
+### ⚙️ PowerShell Setup
+
+1. Open **PowerShell** as **Administrator**
+2. Run the following commands:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+cd C:\Burp
+./install.ps1
+```
+
+### 🎨 Change Icon
+
+- Right-click `Burp-Suite-Pro.vbs` → **Properties**  
+- Go to **Shortcut** tab → Click **Change Icon**  
+- Select `burp-suite.ico` located in `C:\Burp`
+
+<br>
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/29830064/230825172-16c9cfba-4bca-46a4-86df-b352a4330b12.png" alt="Icon Setup" width="500"/>
+</div>
+
+### 📂 Add to Start Menu
+
+- Copy the `Burp-Suite-Pro.vbs` file to the following directory:
+```
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\
+```
+
+---
+
+<details>
+<summary><h3>🙌 Credits</h3></summary>
+
+- 🔐 `loader.jar` by: [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)  
+- 🛠️ Modified and maintained by: [denoyey](https://github.com/denoyey)
+
+</details>
