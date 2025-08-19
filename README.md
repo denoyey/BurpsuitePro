@@ -24,7 +24,7 @@
 
 #### Auto Install
 ```sh
-wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/main/install.sh | sudo bash
+wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/refs/heads/main/install.sh | sudo bash
 ```
 
 #### Run
