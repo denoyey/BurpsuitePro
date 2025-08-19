@@ -1,37 +1,38 @@
 #!/bin/bash
 
-# Update and install required dependencies
+set -e
+
 echo "[*] Installing required dependencies..."
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y
-sudo apt install -y git axel openjdk-21-jre openjdk-22-jre openjdk-23-jre
 
-# Clone the GitHub repository
+# Choose a valid OpenJDK version
+JAVA_PKG="openjdk-17-jre-headless"  # or openjdk-21-jre
+echo "[*] Installing Java package: $JAVA_PKG"
+sudo apt install -y git axel "$JAVA_PKG"
+
 echo "[*] Cloning GitHub repository..."
 git clone https://github.com/denoyey/BurpsuitePro.git
-cd BurpsuitePro || { echo "[!] Failed to enter BurpsuitePro directory."; exit 1; }
+cd BurpsuitePro || { echo "[!] Directory not found."; exit 1; }
 
-# Fetch the latest Burp Suite Pro version number
-echo "[*] Fetching the latest Burp Suite Pro version..."
-latest_version=$(curl -s 'https://portswigger.net/burp/releases/professional?requestedplatform=linux' | grep -Po 'professional-community-\K[0-9]+\.[0-9]+\.[0-9]+' | head -n 1)
+echo "[*] Detecting latest Burp Suite Pro version..."
+latest_version=$(curl -s 'https://portswigger.net/burp/releases/professional?requestedplatform=linux' \
+    | grep -Po '(?<=professional-community-)[0-9]+\.[0-9]+\.[0-9]+' \
+    | head -n 1)
 
 if [[ -z "$latest_version" ]]; then
-  echo "[!] Failed to detect the latest Burp Suite version."
+  echo "[!] Could not detect the latest version."
   exit 1
 fi
-
 echo "[*] Latest version detected: $latest_version"
 
-# Construct download URL and download using axel
-url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$latest_version"
+download_url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$latest_version"
 echo "[*] Downloading Burp Suite Pro v$latest_version..."
-axel "$url" -o "burpsuite_pro_v$latest_version.jar"
+axel -q -o "burpsuite_pro_v$latest_version.jar" "$download_url"
 
-# Run the license loader
-echo "[*] Starting Burp Suite Pro license loader..."
+echo "[*] Starting license loader..."
 (java -jar loader.jar) &
 
-# Create launcher script for Burp Suite Pro
-echo "[*] Creating Burp Suite Pro launcher..."
+echo "[*] Creating launcher script..."
 cat <<EOF > burpsuitepro
 #!/bin/bash
 java \\
@@ -40,15 +41,13 @@ java \\
   --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED \\
   --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED \\
   --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED \\
-  -javaagent:$(pwd)/loader.jar \\
+  -javaagent:\$(pwd)/loader.jar \\
   -noverify \\
-  -jar $(pwd)/burpsuite_pro_v$latest_version.jar &
+  -jar \$(pwd)/burpsuite_pro_v$latest_version.jar &
 EOF
 
-# Make launcher executable and move it to /bin
 chmod +x burpsuitepro
-sudo cp burpsuitepro /bin/burpsuitepro
+sudo mv burpsuitepro /usr/local/bin/burpsuitepro
 
-# Run Burp Suite Pro
 echo "[*] Launching Burp Suite Pro..."
-./burpsuitepro
+burpsuitepro
