@@ -1,6 +1,6 @@
 #!/bin/bash
 # Github: github.com/denoyey/BurpsuitePro.git
-# Script to install BurpSuitePro on Linux
+# Script to install BurpSuitePro on Linux systems
 
 clear
 
@@ -90,7 +90,11 @@ fi
 echo -e "\n[*] Checking license loader..."
 if [[ ! -f loader.jar ]]; then
   echo "[*] loader.jar not found. Downloading from GitHub..."
+<<<<<<< HEAD
+  curl -L -o loader.jar "https://github.com/denoyey/BurpsuitePro/raw/refs/heads/main/loader.jar"
+=======
   curl -L -o loader.jar "https://github.com/denoyey/BurpsuitePro/raw/refs/heads/main/burp-files/loader/loader.jar"
+>>>>>>> f68afcc (Latest BurpsuitePro v2025)
   if [[ ! -f loader.jar ]]; then
     echo -e "\n[!] Failed to download loader.jar. Please check the URL or your connection."
     exit 1
@@ -101,7 +105,11 @@ fi
 echo -e "\n[*] Checking BurpSuitePro logo..."
 if [[ ! -f logo.png ]]; then
   echo "[*] logo.png not found. Downloading from GitHub..."
+<<<<<<< HEAD
+  curl -L -o logo.png "https://github.com/denoyey/BurpsuitePro/raw/main/logo.png"
+=======
   curl -L -o logo.png "https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/logo.png"
+>>>>>>> f68afcc (Latest BurpsuitePro v2025)
   if [[ ! -f logo.png ]]; then
     echo -e "\n[!] Failed to download logo.png. Please check the URL or your connection."
     exit 1
