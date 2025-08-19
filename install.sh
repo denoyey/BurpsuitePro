@@ -3,7 +3,12 @@
 # Installing dependencies
 echo -e "\n[*] Installing dependencies..."
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y
-sudo apt install git axel openjdk-21-jre openjdk-22-jre openjdk-23-jre -y
+for pkg in openjdk-23-jre openjdk-22-jre openjdk-21-jre; do
+  if apt-cache show "$pkg" &>/dev/null; then
+    sudo apt install -y "$pkg"
+    break
+  fi
+done
 
 # Cloning GitHub repository
 echo -e "\n[*] Cloning GitHub repository..."
