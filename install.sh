@@ -3,8 +3,10 @@
 # Installing dependencies
 echo -e "\n[*] Installing dependencies..."
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y
-for pkg in openjdk-23-jre openjdk-22-jre openjdk-21-jre; do
+sudo apt install -y git axel
+for pkg in openjdk-21-jre openjdk-17-jre; do
   if apt-cache show "$pkg" &>/dev/null; then
+    echo "[*] Installing available Java package: $pkg"
     sudo apt install -y "$pkg"
     break
   fi
