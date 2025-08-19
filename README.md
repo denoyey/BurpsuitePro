@@ -98,7 +98,7 @@ You can easily launch BurpSuitePro from your desktop by creating a launcher:
   <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/Launcher.png" alt="BurpSuite Desktop Launcher Example" width="600"/>
 </div>
 
-<h2 align="center">🪟 Windows Installation</h2>
+<h2 align="center">🖥️ Windows Installation</h2>
 
 ### 📁 Setup
 
