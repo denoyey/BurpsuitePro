@@ -24,7 +24,7 @@
 
 #### Auto Install
 ```sh
-wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/main/install.sh | sudo bash install.sh
+wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/main/install.sh | sudo bash
 ```
 
 #### Run
@@ -35,7 +35,7 @@ burpsuitepro
 #### Update
 > optional
 ```sh
-cd && sudo rm -rf BurpsuitePro && wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/refs/heads/main/update.sh | sudo bash
+cd .. && sudo rm -rf BurpsuitePro && wget -qO- https://raw.githubusercontent.com/denoyey/BurpsuitePro/refs/heads/main/update.sh | sudo bash
 ```
 
 #### Java Version
