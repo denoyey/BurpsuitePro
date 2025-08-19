@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# # Remove old files
+# Remove old files
 echo -e "\n[*] Remove old files..."
 sudo rm -rf /bin/burpsuitepro
 
