@@ -1,6 +1,6 @@
 #!/bin/bash
 # Github: github.com/denoyey/BurpsuitePro.git
-# Script to install BurpSuitePro on Linux systems
+# Script ini untuk menginstall Burp Suite Pro di Linux
 
 clear
 
