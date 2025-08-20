@@ -7,6 +7,19 @@
 Clear-Host
 for ($i = 0; $i -lt 2; $i++) { Write-Host "" }
 
+$ascii_art = @'
+░█░░░█▀█░▀█▀░█▀▀░█▀▀░▀█▀░░░█▀▄░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀█
+░█░░░█▀█░░█░░█▀▀░▀▀█░░█░░░░█▀▄░█░█░█▀▄░█▀▀░█▀▀░█▀▄░█░█
+░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀▀░░▀░░░░▀▀░░▀▀▀░▀░▀░▀░░░▀░░░▀░▀░▀▀▀
+    Github: github.com/denoyey/BurpsuitePro.git
+'@ -split "`n"
+foreach ($line in $ascii_art) {
+    foreach ($char in $line.ToCharArray()) {
+        Write-Host -NoNewline $char
+    }
+    Write-Host ""
+}
+
 # Memeriksa apakah PowerShell dijalankan sebagai Administrator
 Write-Host "[*] Checking if PowerShell is running as Administrator..."
 $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
@@ -25,19 +38,6 @@ if (!(Test-Path -Path $installDir)) {
     Write-Host "[*] Using existing directory: $installDir"
 }
 Set-Location -Path $installDir
-
-$ascii_art = @'
-░█░░░█▀█░▀█▀░█▀▀░█▀▀░▀█▀░░░█▀▄░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀█
-░█░░░█▀█░░█░░█▀▀░▀▀█░░█░░░░█▀▄░█░█░█▀▄░█▀▀░█▀▀░█▀▄░█░█
-░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀▀░░▀░░░░▀▀░░▀▀▀░▀░▀░▀░░░▀░░░▀░▀░▀▀▀
-    Github: github.com/denoyey/BurpsuitePro.git
-'@ -split "`n"
-foreach ($line in $ascii_art) {
-    foreach ($char in $line.ToCharArray()) {
-        Write-Host -NoNewline $char
-    }
-    Write-Host ""
-}
 
 # Mengsetting powershell progress display ke silent untuk meningkatkan kecepatan download
 Write-Host "`n[*] Setting PowerShell progress display to silent to improve download speed..."
