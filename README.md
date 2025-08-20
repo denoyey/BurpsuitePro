@@ -40,7 +40,7 @@ Burp Suite Professional is a powerful tool used for security testing of web appl
   - [☕ Select Java Version](#-select-java-version)
   - [🔑 Setup License](#-setup-license)
   - [📌 Create Desktop Launcher (XFCE)](#-create-desktop-launcher-xfce)
-- [🪟 Windows Installation](#-windows-installation)
+- [🖥️ Windows Installation](#-windows-installation)
   - [📁 Setup](#-setup)
   - [⚙️ PowerShell Setup](#-powershell-setup)
   - [🎨 Change Icon](#-change-icon)
