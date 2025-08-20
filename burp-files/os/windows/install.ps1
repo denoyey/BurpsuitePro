@@ -8,10 +8,13 @@ Clear-Host
 for ($i = 0; $i -lt 2; $i++) { Write-Host "" }
 
 $ascii_art = @'
-░█░░░█▀█░▀█▀░█▀▀░█▀▀░▀█▀░░░█▀▄░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀█
-░█░░░█▀█░░█░░█▀▀░▀▀█░░█░░░░█▀▄░█░█░█▀▄░█▀▀░█▀▀░█▀▄░█░█
-░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀▀░░▀░░░░▀▀░░▀▀▀░▀░▀░▀░░░▀░░░▀░▀░▀▀▀
-    Github: github.com/denoyey/BurpsuitePro.git
+/============================================================================\
+||   |            |               |      _ )                                ||
+||   |      _` |   _|   -_) (_-<   _|    _ \  |  |   _| _ \  _ \   _| _ \   ||
+||  ____| \__,_| \__| \___| ___/ \__|   ___/ \_,_| _|  .__/ .__/ _| \___/   ||
+||                                                    _|   _|               ||
+\============================================================================/
+                Github: github.com/denoyey/BurpsuitePro.git
 '@ -split "`n"
 foreach ($line in $ascii_art) {
     foreach ($char in $line.ToCharArray()) {
@@ -21,7 +24,7 @@ foreach ($line in $ascii_art) {
 }
 
 # Memeriksa apakah PowerShell dijalankan sebagai Administrator
-Write-Host "[*] Checking if PowerShell is running as Administrator..."
+Write-Host "`n[*] Checking if PowerShell is running as Administrator..."
 $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 if (-not $IsAdmin) {
     Write-Host "`n[ERROR] Please run this script as Administrator." -ForegroundColor Red
@@ -32,10 +35,10 @@ if (-not $IsAdmin) {
 Write-Host "`n[*] Checking installation directory..."
 $installDir = "C:\BurpsuitePro"
 if (!(Test-Path -Path $installDir)) {
-    Write-Host "[*] Creating installation directory: $installDir"
+    Write-Host "`n[*] Creating installation directory: $installDir"
     New-Item -ItemType Directory -Path $installDir | Out-Null
 } else {
-    Write-Host "[*] Using existing directory: $installDir"
+    Write-Host "`n[*] Using existing directory: $installDir"
 }
 Set-Location -Path $installDir
 
