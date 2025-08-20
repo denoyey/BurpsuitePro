@@ -54,11 +54,18 @@ Visit the official BurpSuitePro site: [https://portswigger.net/burp/pro](https:/
   <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/Web-BurpsuitePro.png" alt="BurpSuite Website"/>
 </p>
 
-<h2 align="center">💻 Linux Installation</h2>
+## 🐍 Python Required
 
-### 🔧 Installation (Recommended)
+Make sure Python 3 is installed:
+
+- **Linux**: `python3 --version`  
+- **Windows**: install from [python.org](https://www.python.org/downloads/) and check "Add to PATH"
+
+<h2 align="left">💻 Linux Installation</h2>
+
+### 🔧 Installation
 > Clone and install directly
-```bash
+```terminal
 git clone https://github.com/denoyey/BurpsuitePro.git
 cd BurpsuitePro
 python run.py
@@ -66,7 +73,7 @@ python run.py
 
 ###  ☕ Select Java Version
 > If you have multiple versions of Java installed (e.g., Java 17 and Java 21), you can manually select the default version by running:
-```
+```terminal
 sudo update-alternatives --config java
 ```
 This command will display a list of installed Java versions. Enter the corresponding number to set your preferred version as the system default.
@@ -98,22 +105,23 @@ You can easily launch BurpSuitePro from your desktop by creating a launcher:
   <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/Launcher.png" alt="BurpSuite Desktop Launcher Example" width="600"/>
 </div>
 
-<h2 align="center">🖥️ Windows Installation</h2>
+<h2 align="left">🖥️ Windows Installation</h2>
 
 ### 📁 Setup
 
-1. Create a folder: `C:\BurpsuitePro`
-2. Download the [repository as ZIP](https://github.com/denoyey/BurpsuitePro/archive/refs/heads/main.zip)
-3. Extract all contents into `C:\BurpsuitePro`
+1. Download the [repository as ZIP](https://github.com/denoyey/BurpsuitePro/archive/refs/heads/main.zip)
+3. Extract **all contents** to **any folder you like** (e.g., `C:\Tools\BurpsuitePro` or your Desktop)
 
 ### ⚙️ PowerShell Setup
 
 1. Open **PowerShell** as **Administrator**
-2. Run the following commands:
+2. Navigate to the folder where you extracted the files
+```powershell
+cd path\to\BurpsuitePro
+```
+4. Run the following commands:
 
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-cd C:\BurpsuitePro
 python run.py
 ```
 
@@ -121,7 +129,7 @@ python run.py
 
 - Right-click `Burp-Suite-Pro.vbs` → **Properties**  
 - Go to **Shortcut** tab → Click **Change Icon**  
-- Select `burp-suite.ico` located in `C:\Burp`
+- Select `burp-suite.ico` located in `C:\BurpsuitePro`
 
 <br>
 
