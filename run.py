@@ -1,6 +1,6 @@
 #!/bin/python3
 # Github: github.com/denoyey/BurpsuitePro.git
-# run.py - Script to install Burp Suite Pro on various operating systems
+# run.py - Script ini untuk menginstall Burp Suite Pro di berbagai sistem operasi
 
 import os
 import platform
