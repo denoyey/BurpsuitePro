@@ -61,7 +61,7 @@ Visit the official BurpSuitePro site: [https://portswigger.net/burp/pro](https:/
 ```bash
 git clone https://github.com/denoyey/BurpsuitePro.git
 cd BurpsuitePro
-./run.bash
+python run.py
 ```
 
 ###  ☕ Select Java Version
@@ -102,9 +102,9 @@ You can easily launch BurpSuitePro from your desktop by creating a launcher:
 
 ### 📁 Setup
 
-1. Create a folder: `C:\Burp`
+1. Create a folder: `C:\BurpsuitePro`
 2. Download the [repository as ZIP](https://github.com/denoyey/BurpsuitePro/archive/refs/heads/main.zip)
-3. Extract all contents into `C:\Burp`
+3. Extract all contents into `C:\BurpsuitePro`
 
 ### ⚙️ PowerShell Setup
 
@@ -113,8 +113,8 @@ You can easily launch BurpSuitePro from your desktop by creating a launcher:
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-cd C:\Burp
-./install.ps1
+cd C:\BurpsuitePro
+python run.py
 ```
 
 ### 🎨 Change Icon
