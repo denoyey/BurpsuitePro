@@ -1,10 +1,30 @@
 #!/bin/bash
 # Github: github.com/denoyey/BurpsuitePro.git
+# Script ini untuk menginstall Burp Suite Pro di Windows
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 Clear-Host
 for ($i = 0; $i -lt 2; $i++) { Write-Host "" }
+
+# Memeriksa apakah PowerShell dijalankan sebagai Administrator
+Write-Host "[*] Checking if PowerShell is running as Administrator..."
+$IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+if (-not $IsAdmin) {
+    Write-Host "`n[ERROR] Please run this script as Administrator." -ForegroundColor Red
+    exit 1
+}
+
+# Membuat direktori instalasi jika belum ada dan masuk ke direktori
+Write-Host "`n[*] Checking installation directory..."
+$installDir = "C:\BurpsuitePro"
+if (!(Test-Path -Path $installDir)) {
+    Write-Host "[*] Creating installation directory: $installDir"
+    New-Item -ItemType Directory -Path $installDir | Out-Null
+} else {
+    Write-Host "[*] Using existing directory: $installDir"
+}
+Set-Location -Path $installDir
 
 $ascii_art = @'
 ░█░░░█▀█░▀█▀░█▀▀░█▀▀░▀█▀░░░█▀▄░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀█
