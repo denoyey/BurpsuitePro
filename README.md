@@ -34,6 +34,7 @@ Burp Suite Professional is a powerful tool used for security testing of web appl
 
 - [🔰 Introduction](#-introduction)
 - [🌐 Official Website](#-official-website)
+- [🐍 Python Required](#-python-required)
 - [💻 Linux Installation](#-linux-installation)
   - [🔧 Installation (Recommended)](#-installation-recommended)
   - [☕ Select Java Version](#-select-java-version)
