@@ -9,10 +9,10 @@ Burp Suite Professional is a powerful tool used for security testing of web appl
 
 ![Build](https://img.shields.io/badge/build-stable-28a745?style=for-the-badge&logo=github)
 ![Platform](https://img.shields.io/badge/platform-Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)
-![Platform](https://img.shields.io/badge/platform-Windows-00adef?style=for-the-badge&logo=windows&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 ![Last Commit](https://img.shields.io/github/last-commit/denoyey/BurpsuitePro?style=for-the-badge&logo=git)
 ![Language](https://img.shields.io/github/languages/top/denoyey/BurpsuitePro?style=for-the-badge&color=informational)
-![Technologies](https://img.shields.io/badge/technologies-Bash%20%7C%20PowerShell-yellow?style=for-the-badge&logo=terminal)
+![Technologies](https://img.shields.io/badge/technologies-Bash%20%7C%20PowerShell%20%7C%20Python-yellow?style=for-the-badge&logo=terminal)
 ![Stars](https://img.shields.io/github/stars/denoyey/BurpsuitePro?style=for-the-badge&color=ffac33&logo=github)
 ![Forks](https://img.shields.io/github/forks/denoyey/BurpsuitePro?style=for-the-badge&color=blueviolet&logo=github)
 ![Issues](https://img.shields.io/github/issues/denoyey/BurpsuitePro?style=for-the-badge&logo=github)
