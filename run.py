@@ -51,6 +51,7 @@ try:
                     "burp-files/os/windows/install.ps1",
                 ],
                 check=True,
+                encoding="utf-8",
             )
         except subprocess.CalledProcessError:
             print(f"\n{RED}[X]{RESET} PowerShell execution failed.\n")
