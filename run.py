@@ -52,8 +52,8 @@ try:
                 ],
                 check=True,
             )
-        except subprocess.CalledProcessError as e:
-            print(f"\n{RED}[X]{RESET} PowerShell execution failed: {e}")
+        except subprocess.CalledProcessError:
+            print(f"\n{RED}[X]{RESET} PowerShell execution failed.\n")
             sys.exit(1)
     elif os_type in ("linux", "wsl", "darwin"):
         print(f"\n{BLUE}[*]{RESET} Running Linux/macOS installer...")
