@@ -21,10 +21,12 @@ else
   echo -e "    [No existing launcher found in /bin/]"
 fi
 
+echo -e "\n$(printf '%0.s=' {1..70})"
+
 # Meminta versi BurpSuitePro dari user
 echo -e "\n[*] Check the latest STABLE version at:"
 echo -e "    https://portswigger.net/burp/releases/professional/latest"
-echo -e "[!] Please use only a STABLE version (not Early Adopter or Beta)\n"
+echo -e "\n[!] Please use only a STABLE version (not Early Adopter or Beta)\n"
 while true; do
   read -p "    >> Enter version (e.g., 2025.7.3): " version_input
   version="${version_input//./-}"
@@ -40,31 +42,45 @@ while true; do
 done
 echo -e "\n[*] Using version: $version_input"
 
-# Nama folder instalasi
+echo -e "\n$(printf '%0.s=' {1..70})"
+
+# Mempersiapkan direktori instalasi
+echo -e "\n[*] Preparing installation directory..."
 version="$version_input"
 RUNTIME_DIR="$HOME/BurpsuitePro_v$version"
+jar_name="burpsuite_pro_v$version.jar"
+jar_path="$RUNTIME_DIR/$jar_name"
 if [[ -d "$RUNTIME_DIR" ]]; then
   echo -e "\n[!] Directory already exists: $RUNTIME_DIR"
   read -p "    >> Do you want to delete and recreate it? (y/n): " confirm
   if [[ "$confirm" =~ ^[Yy]$ ]]; then
     rm -rf "$RUNTIME_DIR"
     echo -e "\n[*] Deleted existing directory."
+    mkdir -p "$RUNTIME_DIR"
   else
-    echo -e "\n[!] Please remove or rename the existing folder before continuing."
-    exit 1
+    echo -e "\n[*] Keeping existing directory."
+    if [[ -f "$jar_path" ]]; then
+      echo -e "\n[*] Detected existing BurpSuitePro JAR file for version $version_input. Skipping download."
+    else
+      echo -e "\n[*] No JAR file found for version $version_input. Proceeding to download..."
+    fi
   fi
+else
+  echo -e "\n[*] Creating runtime directory at $RUNTIME_DIR..."
+  mkdir -p "$RUNTIME_DIR"
 fi
-
-# Membuat folder runtime
-echo -e "\n[*] Creating runtime directory at $RUNTIME_DIR..."
-mkdir -p "$RUNTIME_DIR" && cd "$RUNTIME_DIR" || {
-  echo "[!] Failed to create or enter directory."; exit 1;
+cd "$RUNTIME_DIR" || {
+  echo "[!] Failed to enter directory."; exit 1;
 }
+
+echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Instalasi dependencies
 echo -e "\n[*] Installing dependencies..."
 sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y
 sudo apt install -y git axel
+
+echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Instalasi Java versi yang tersedia
 for pkg in openjdk-21-jre openjdk-17-jre; do
@@ -75,44 +91,74 @@ for pkg in openjdk-21-jre openjdk-17-jre; do
   fi
 done
 
-# Download BurpSuitePro
-echo -e "\n[*] Downloading latest BurpSuitePro..."
-jar_name="burpsuite_pro_v$version.jar"
-url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$version"
+echo -e "\n$(printf '%0.s=' {1..70})"
 
-if axel "$url" -o "$jar_name"; then
-  echo -e "\n[*] Download complete: $jar_name"
+# Download BurpSuitePro
+echo -e "\n[*] Checking BurpsuitePro..."
+if [[ ! -f "$jar_name" ]]; then
+  echo -e "\n[*] Downloading BurpSuitePro for version $version_input..."
+  url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$version"
+  if axel "$url" -o "$jar_name"; then
+    echo -e "\n[*] Download complete: $jar_name"
+  else
+    echo -e "\n[!] Download failed!"; exit 1;
+  fi
 else
-  echo -e "\n[!] Download failed!";
+  echo -e "\n[*] BurpSuitePro file already exists: $jar_name"
+  echo -e "    Skipping download."
 fi
+
+echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Download loader.jar jika belum ada
 echo -e "\n[*] Checking license loader..."
 if [[ ! -f loader.jar ]]; then
   echo "[*] loader.jar not found. Downloading from GitHub..."
-  curl -L -o loader.jar "https://github.com/denoyey/BurpsuitePro/raw/refs/heads/main/loader.jar"
   curl -L -o loader.jar "https://github.com/denoyey/BurpsuitePro/raw/refs/heads/main/burp-files/loader/loader.jar"
   if [[ ! -f loader.jar ]]; then
     echo -e "\n[!] Failed to download loader.jar. Please check the URL or your connection."
     exit 1
   fi
+else
+  echo "[*] loader.jar already exists. Skipping download."
 fi
+
+echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Download logo.png jika belum ada
 echo -e "\n[*] Checking BurpSuitePro logo..."
 if [[ ! -f logo.png ]]; then
   echo "[*] logo.png not found. Downloading from GitHub..."
-  curl -L -o logo.png "https://github.com/denoyey/BurpsuitePro/raw/main/logo.png"
-  curl -L -o logo.png "https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/logo.png"
+  curl -L -o logo.png "https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/logo.png?raw=true"
   if [[ ! -f logo.png ]]; then
     echo -e "\n[!] Failed to download logo.png. Please check the URL or your connection."
     exit 1
   fi
+else
+  echo "[*] logo.png already exists. Skipping download."
 fi
 
+echo -e "\n$(printf '%0.s=' {1..70})"
+
 # Buat launcher script di folder instalasi
-echo -e "\n[*] Creating launcher script..."
-cat <<EOF > burpsuitepro
+echo -e "\n[*] Checking existing launcher script..."
+LAUNCHER_FILE="burpsuitepro"
+EXPECTED_JAR_LINE="-jar \"\$DIR/$jar_name\" &"
+if [[ -f $LAUNCHER_FILE ]]; then
+  echo -e "[*] Found existing launcher script: $LAUNCHER_FILE"
+  if grep -q "$EXPECTED_JAR_LINE" "$LAUNCHER_FILE"; then
+    echo -e "[*] Launcher script already points to correct version ($jar_name). Skipping creation."
+  else
+    echo -e "[!] Existing launcher script points to a different version. Replacing it..."
+    rm -f "$LAUNCHER_FILE"
+    CREATE_LAUNCHER=true
+  fi
+else
+  CREATE_LAUNCHER=true
+fi
+if [[ "$CREATE_LAUNCHER" == true ]]; then
+  echo -e "[*] Creating launcher script..."
+  cat <<EOF > $LAUNCHER_FILE
 #!/bin/bash
 # Github: https://github.com/denoyey/BurpsuitePro.git
 
@@ -128,18 +174,34 @@ java \\
   -noverify \\
   -jar "\$DIR/$jar_name" &
 EOF
+  chmod +x $LAUNCHER_FILE
+  sudo cp $LAUNCHER_FILE /bin/burpsuitepro
+  echo "[*] CLI launcher installed: /bin/burpsuitepro"
+fi
 
-chmod +x burpsuitepro
-sudo cp burpsuitepro /bin/burpsuitepro
-echo "[*] CLI launcher installed: /bin/burpsuitepro"
+echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Buat launcher .desktop agar tampil di menu linux
 echo -e "\n[*] Would you like to create a desktop menu shortcut?"
 read -p "    >> Create desktop launcher? (y/n): " create_desktop
-
+DESKTOP_FILE="$HOME/.local/share/applications/burpsuitepro.desktop"
+EXPECTED_EXEC_LINE="Exec=$RUNTIME_DIR/burpsuitepro"
 if [[ "$create_desktop" =~ ^[Yy]$ ]]; then
-  echo "[*] Creating desktop launcher..."
-  cat <<EOF > ~/.local/share/applications/burpsuitepro.desktop
+  echo -e "\n[*] Checking existing desktop launcher..."
+  CREATE_DESKTOP=true
+  if [[ -f "$DESKTOP_FILE" ]]; then
+    echo "[*] Found existing desktop launcher: $DESKTOP_FILE"
+    if grep -q "$EXPECTED_EXEC_LINE" "$DESKTOP_FILE"; then
+      echo "[*] Desktop launcher already points to correct version. Skipping creation."
+      CREATE_DESKTOP=false
+    else
+      echo "[!] Desktop launcher points to different version. Replacing..."
+      rm -f "$DESKTOP_FILE"
+    fi
+  fi
+  if [[ "$CREATE_DESKTOP" == true ]]; then
+    echo "[*] Creating desktop launcher..."
+    cat <<EOF > "$DESKTOP_FILE"
 [Desktop Entry]
 Name=BurpSuitePro
 Comment=Burp Suite Professional Launcher
@@ -150,18 +212,38 @@ Type=Application
 Categories=Development;Security;
 StartupNotify=true
 EOF
-
-  chmod +x ~/.local/share/applications/burpsuitepro.desktop
-  echo -e "\n[*] Desktop launcher created at ~/.local/share/applications/burpsuitepro.desktop"
-  echo -e "\n[*] You can now launch BurpSuitePro from your application menu."
+    chmod +x "$DESKTOP_FILE"
+    echo -e "\n[*] Desktop launcher created at $DESKTOP_FILE"
+    echo -e "[*] You can now launch BurpSuitePro from your application menu."
+  fi
 else
   echo -e "\n[*] Skipping desktop launcher creation."
 fi
 
+echo -e "\n$(printf '%0.s=' {1..70})"
+
 # Jalankan loader
-echo -e "\n[*] Starting license loader..."
-(java -jar loader.jar) &
+BURP_PREFS_DIR="$HOME/.java/.userPrefs/burp"
+if [[ -d "$BURP_PREFS_DIR" ]]; then
+  echo -e "\n[*] BurpSuitePro already activated. Skipping license loader."
+else
+  echo -e "\n[*] Starting license loader..."
+  (java -jar loader.jar) &
+fi
+
+echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Jalankan BurpSuitePro
 echo -e "\n[*] Launching BurpSuitePro..."
 ./burpsuitepro
+
+echo -e "\n$(printf '%0.s=' {1..70})"
+
+# Menampilkan pesan akhir
+echo -e "\n[*] Installation and setup complete!"
+echo -e "    You can now run Burp Suite Professional using the command: burpsuitepro"
+echo -e "    or from your application menu if you created a desktop launcher."
+echo -e "\n[*] Thank you for using this script!"
+echo -e "    For any issues, please report them on the GitHub repository."
+
+echo -e "\n$(printf '%0.s=' {1..70})"
