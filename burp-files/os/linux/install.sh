@@ -12,17 +12,6 @@ ascii_art="
 "
 echo -e "$ascii_art"
 
-# Menghapus file lama di /bin/
-echo -e "\n[*] Checking for existing launcher in /bin/..."
-if [[ -f /bin/burpsuitepro ]]; then
-  echo -e "\n[*] Old launcher found. Removing..."
-  sudo rm -f /bin/burpsuitepro
-else
-  echo -e "    [No existing launcher found in /bin/]"
-fi
-
-echo -e "\n$(printf '%0.s=' {1..70})"
-
 # Meminta versi BurpSuitePro dari user
 echo -e "\n[*] Check the latest STABLE version at:"
 echo -e "    https://portswigger.net/burp/releases/professional/latest"
@@ -51,7 +40,7 @@ RUNTIME_DIR="$HOME/BurpsuitePro_v$version"
 jar_name="burpsuite_pro_v$version.jar"
 jar_path="$RUNTIME_DIR/$jar_name"
 if [[ -d "$RUNTIME_DIR" ]]; then
-  echo -e "\n[!] Directory already exists: $RUNTIME_DIR"
+  echo -e "\n[!] Directory already exists: [$RUNTIME_DIR]"
   read -p "    >> Do you want to delete and recreate it? (y/n): " confirm
   if [[ "$confirm" =~ ^[Yy]$ ]]; then
     rm -rf "$RUNTIME_DIR"
