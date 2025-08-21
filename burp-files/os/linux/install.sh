@@ -77,8 +77,8 @@ echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Instalasi dependencies
 echo -e "\n[*] Installing dependencies..."
-sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y
-sudo apt install -y git axel
+sudo apt-get update && sudo apt-get full-upgrade -y && sudo apt-get autoremove -y
+sudo apt-get install -y git axel
 
 echo -e "\n$(printf '%0.s=' {1..70})"
 
