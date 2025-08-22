@@ -1,6 +1,6 @@
 <div align="center">
 
-# BURPSUITE PROFESSIONAL V2025
+# BURPSUITE PROFESSIONAL v2025
 
 <p align="center">
 <strong>Burp Suite Professional</strong> is a powerful tool used for security testing of web applications. It helps professionals analyze, intercept, and manipulate HTTP/S traffic between the browser and the target application. Packed with features such as Proxy, Scanner, Repeater, Intruder, and more, it enables users to detect and exploit common vulnerabilities like SQL injection, XSS, and CSRF. This version is fully unlocked and intended for ethical hacking and educational purposes.
