@@ -1,11 +1,11 @@
-## 🔰 Introduction
+<div align="center">
 
-**BurpSuite Professional v2025 (Latest Version)**
+## BURPSUITE PROFESSIONAL V2025 (LATEST VERSION)
 
-<p align="left">
-Burp Suite Professional is a powerful tool used for security testing of web applications. It helps professionals analyze, intercept, and manipulate HTTP/S traffic between the browser and the target application. Packed with features such as Proxy, Scanner, Repeater, Intruder, and more, it enables users to detect and exploit common vulnerabilities like SQL injection, XSS, and CSRF. This version is fully unlocked and intended for ethical hacking and educational purposes.
+<p align="center">
+<strong>Burp Suite Professional</strong> is a powerful tool used for security testing of web applications. It helps professionals analyze, intercept, and manipulate HTTP/S traffic between the browser and the target application. Packed with features such as Proxy, Scanner, Repeater, Intruder, and more, it enables users to detect and exploit common vulnerabilities like SQL injection, XSS, and CSRF. This version is fully unlocked and intended for ethical hacking and educational purposes.
 
-<div align="left">
+<div align="center">
 
 ![Build](https://img.shields.io/badge/build-stable-28a745?style=for-the-badge&logo=github)
 ![Platform](https://img.shields.io/badge/platform-Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)
@@ -26,30 +26,35 @@ Burp Suite Professional is a powerful tool used for security testing of web appl
 
 </p>
 
-<p align="center">
-  <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/BurpsuitePro-v2025.png" alt="BurpSuitePro Interface"/>
-</p>
+</div>
 
-## 📚 Table of Contents
+## 📖 Table of Contents
 
-- [🔰 Introduction](#-introduction)
+- [🔍 Overview](#-overview)
 - [🌐 Official Website](#-official-website)
 - [🐍 Python Required](#-python-required)
 - [💻 Linux Installation](#-linux-installation)
-  - [🔧 Installation (Recommended)](#-installation-recommended)
+  - [🔧 Installation](#-installation)
   - [☕ Select Java Version](#-select-java-version)
   - [🔑 Setup License](#-setup-license)
   - [📌 Create Desktop Launcher (XFCE)](#-create-desktop-launcher-xfce)
-- [🖥️ Windows Installation](#-windows-installation)
+- [🖥️ Windows Installation](#%EF%B8%8F-windows-installation)
   - [📁 Setup](#-setup)
-  - [⚙️ PowerShell Setup](#-powershell-setup)
+  - [⚙️ PowerShell Setup](#%EF%B8%8F-powershell-setup)
   - [🎨 Change Icon](#-change-icon)
   - [📂 Add to Start Menu](#-add-to-start-menu)
 - [🙌 Credits](#-credits)
 
+## 🔍 Overview
+
+**BurpSuitePro** (Latest) is an advanced web vulnerability scanner and proxy tool for efficient and precise security testing.
+<p align="center">
+  <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/BurpsuitePro-v2025.png" alt="BurpSuitePro Interface"/>
+</p>
+
 ## 🌐 Official Website
 
-Visit the official BurpSuitePro site: [https://portswigger.net/burp/pro](https://portswigger.net/burp/pro)
+Visit the official **BurpSuitePro** site: [https://portswigger.net/burp/pro](https://portswigger.net/burp/pro)
 
 <p align="center">
   <img src="https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/Web-BurpsuitePro.png" alt="BurpSuite Website"/>
@@ -145,12 +150,7 @@ python run.py
 C:\ProgramData\Microsoft\Windows\Start Menu\Programs\
 ```
 
----
+## 🧩 Credits
 
-<details>
-<summary><h3>🙌 Credits</h3></summary>
-
-- 🔐 `loader.jar` by: [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)  
-- 🛠️ Modified and maintained by: [denoyey](https://github.com/denoyey)
-
-</details>
+- 🧪 Original loader by [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)  
+- 🔧 Tweaked & maintained by [denoyey](https://github.com/denoyey)
