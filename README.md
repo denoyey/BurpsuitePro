@@ -3,7 +3,7 @@
 # BURPSUITE PROFESSIONAL v2025
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/denoyey/BurpsuitePro/7c342398edfb24e431bf71af8dd2992d5ed400a8/burp-files/img/banner.gif" alt="Banner BurpsuitePro"/>
+  <img src="https://raw.githubusercontent.com/denoyey/BurpsuitePro/main/burp-files/img/banner.gif" alt="Banner BurpsuitePro"/>
 </p>
 
 <p align="center">
