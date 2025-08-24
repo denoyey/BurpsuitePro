@@ -157,5 +157,5 @@ C:\ProgramData\Microsoft\Windows\Start Menu\Programs\
 
 ## 🧩 Credits
 
-- 🧪 Original loader by [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)  
-- 🔧 Tweaked & maintained by [denoyey](https://github.com/denoyey)
+- Original loader by [h3110w0r1d-y](https://github.com/h3110w0r1d-y/BurpLoaderKeygen)  
+- Tweaked & maintained by [denoyey](https://github.com/denoyey)
