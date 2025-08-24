@@ -136,7 +136,7 @@ EXPECTED_JAR_LINE="-jar \"\$DIR/$jar_name\" &"
 if [[ -f $LAUNCHER_FILE ]]; then
   echo -e "[*] Found existing launcher script: $LAUNCHER_FILE"
   if grep -q "$EXPECTED_JAR_LINE" "$LAUNCHER_FILE"; then
-    echo -e "[*] Launcher script already points to correct version ($jar_name). Skipping creation."
+    echo -e "[*] Launcher script already points to correct version ('$jar_name'). Skipping creation."
   else
     echo -e "[!] Existing launcher script points to a different version. Replacing it..."
     rm -f "$LAUNCHER_FILE"
@@ -238,7 +238,14 @@ echo -e "    For any issues, please report them on the GitHub repository."
 echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Setelah aplikasi ditutup, hapus folder instalasi
-echo -e "\n[*] Cleaning up temporary installation directory..."
-rm -rf "$RUNTIME_DIR"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+GIT_REPO_DIR_NAME="BurpsuitePro"
+if [[ "$SCRIPT_DIR" == *"$GIT_REPO_DIR_NAME"* ]]; then
+  echo -e "\n[*] Cleaning up GitHub repo clone directory: $SCRIPT_DIR"
+  cd ~
+  rm -rf "$SCRIPT_DIR"
+else
+  echo -e "\n[!] Skipping cleanup: script not run from cloned repository directory."
+fi
 
 echo -e "\n$(printf '%0.s=' {1..70})"
