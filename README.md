@@ -74,6 +74,7 @@ Make sure Python 3 is installed:
 ```terminal
 git clone https://github.com/denoyey/BurpsuitePro.git
 cd BurpsuitePro
+chmod +x run.py
 python run.py
 ```
 
