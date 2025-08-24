@@ -3,6 +3,7 @@
 # Script ini untuk menginstall Burp Suite Pro di Linux
 
 clear
+CLONED_REPO_DIR="$(pwd)"
 
 ascii_art="
 ░█░░░█▀█░▀█▀░█▀▀░█▀▀░▀█▀░░░█▀▄░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀█
@@ -25,8 +26,9 @@ echo -e "    https://portswigger.net/burp/releases/professional/latest"
 echo -e "\n[!] Please use only a STABLE version (not Early Adopter or Beta)\n"
 while true; do
   read -p "    >> Enter version (e.g., 2025.7.4): " version_input
-  version="${version_input//./-}"
-  latest_stable="https://portswigger.net/burp/releases/professional-community-$version?requestededition=professional"
+  version_clean="${version_input//[\/.]/-}"
+  version_folder="${version_input//\//.}"
+  latest_stable="https://portswigger.net/burp/releases/professional-community-$version_clean?requestededition=professional"
   echo -e "\n[*] Checking URL: $latest_stable"
   status_code=$(curl -s -o /dev/null -w "%{http_code}" "$latest_stable")
   if [[ "$status_code" == "200" ]]; then
@@ -36,14 +38,15 @@ while true; do
     echo -e "\n[!] Version $version_input is NOT valid. Please try again.\n"
   fi
 done
-echo -e "\n[*] Using version: $version_input"
+version="$version_clean"
+echo -e "\n[*] Using version: $version"
 
 echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Mempersiapkan direktori instalasi
 echo -e "\n[*] Preparing installation directory..."
-version="$version_input"
-RUNTIME_DIR="$HOME/BurpsuitePro_v$version"
+version="$version_clean"
+RUNTIME_DIR="$HOME/BurpsuitePro_v$version_folder"
 jar_name="burpsuite_pro_v$version.jar"
 jar_path="$RUNTIME_DIR/$jar_name"
 if [[ -d "$RUNTIME_DIR" ]]; then
@@ -135,7 +138,7 @@ LAUNCHER_FILE="burpsuitepro"
 EXPECTED_JAR_LINE="-jar \"\$DIR/$jar_name\" &"
 if [[ -f $LAUNCHER_FILE ]]; then
   echo -e "[*] Found existing launcher script: $LAUNCHER_FILE"
-  if grep -q "$EXPECTED_JAR_LINE" "$LAUNCHER_FILE"; then
+  if grep -q -- "$EXPECTED_JAR_LINE" "$LAUNCHER_FILE"; then
     echo -e "[*] Launcher script already points to correct version ('$jar_name'). Skipping creation."
   else
     echo -e "[!] Existing launcher script points to a different version. Replacing it..."
@@ -237,15 +240,14 @@ echo -e "    For any issues, please report them on the GitHub repository."
 
 echo -e "\n$(printf '%0.s=' {1..70})"
 
-# Setelah aplikasi ditutup, hapus folder instalasi
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-GIT_REPO_DIR_NAME="BurpsuitePro"
-if [[ "$SCRIPT_DIR" == *"$GIT_REPO_DIR_NAME"* ]]; then
-  echo -e "\n[*] Cleaning up GitHub repo clone directory: $SCRIPT_DIR"
-  cd ~
-  rm -rf "$SCRIPT_DIR"
+# Setelah aplikasi ditutup, hapus folder hasil git clone
+if [[ -d "$CLONED_REPO_DIR" ]]; then
+  echo -e "\n[*] Cleaning up cloned repo at: $CLONED_REPO_DIR"
+  cd "$CLONED_REPO_DIR/.." || { echo "[!] Failed to cd to parent directory."; exit 1; }
+  rm -rf "$CLONED_REPO_DIR"
+  echo "[*] Cloned repo removed successfully."
 else
-  echo -e "\n[!] Skipping cleanup: script not run from cloned repository directory."
+  echo -e "\n[!] Cloned repo directory does not exist or already removed: $CLONED_REPO_DIR"
 fi
 
 echo -e "\n$(printf '%0.s=' {1..70})"
