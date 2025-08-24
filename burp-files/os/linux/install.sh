@@ -8,16 +8,23 @@ ascii_art="
 ░█░░░█▀█░▀█▀░█▀▀░█▀▀░▀█▀░░░█▀▄░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀█
 ░█░░░█▀█░░█░░█▀▀░▀▀█░░█░░░░█▀▄░█░█░█▀▄░█▀▀░█▀▀░█▀▄░█░█
 ░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀▀░░▀░░░░▀▀░░▀▀▀░▀░▀░▀░░░▀░░░▀░▀░▀▀▀                                                                                                                 
-    Github: github.com/denoyey/BurpsuitePro.git
+    Github: github.com/denoyey/BurpsuitePro
 "
 echo -e "$ascii_art"
+
+# Instalasi dependencies
+echo -e "\n[*] Installing dependencies..."
+sudo apt-get update && sudo apt-get full-upgrade -y && sudo apt-get autoremove -y
+sudo apt-get install -y git axel
+
+echo -e "\n$(printf '%0.s=' {1..70})"
 
 # Meminta versi BurpSuitePro dari user
 echo -e "\n[*] Check the latest STABLE version at:"
 echo -e "    https://portswigger.net/burp/releases/professional/latest"
 echo -e "\n[!] Please use only a STABLE version (not Early Adopter or Beta)\n"
 while true; do
-  read -p "    >> Enter version (e.g., 2025.7.3): " version_input
+  read -p "    >> Enter version (e.g., 2025.7.4): " version_input
   version="${version_input//./-}"
   latest_stable="https://portswigger.net/burp/releases/professional-community-$version?requestededition=professional"
   echo -e "\n[*] Checking URL: $latest_stable"
@@ -61,13 +68,6 @@ fi
 cd "$RUNTIME_DIR" || {
   echo "[!] Failed to enter directory."; exit 1;
 }
-
-echo -e "\n$(printf '%0.s=' {1..70})"
-
-# Instalasi dependencies
-echo -e "\n[*] Installing dependencies..."
-sudo apt-get update && sudo apt-get full-upgrade -y && sudo apt-get autoremove -y
-sudo apt-get install -y git axel
 
 echo -e "\n$(printf '%0.s=' {1..70})"
 
@@ -234,5 +234,11 @@ echo -e "    You can now run Burp Suite Professional using the command: burpsuit
 echo -e "    or from your application menu if you created a desktop launcher."
 echo -e "\n[*] Thank you for using this script!"
 echo -e "    For any issues, please report them on the GitHub repository."
+
+echo -e "\n$(printf '%0.s=' {1..70})"
+
+# Setelah aplikasi ditutup, hapus folder instalasi
+echo -e "\n[*] Cleaning up temporary installation directory..."
+rm -rf "$RUNTIME_DIR"
 
 echo -e "\n$(printf '%0.s=' {1..70})"
