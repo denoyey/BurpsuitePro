@@ -89,7 +89,7 @@ echo -e "\n$(printf '%0.s=' {1..70})"
 echo -e "\n[*] Checking BurpsuitePro..."
 if [[ ! -f "$jar_name" ]]; then
   echo -e "\n[*] Downloading BurpSuitePro for version $version_input..."
-  url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$version"
+  url="https://portswigger-cdn.net/burp/releases/download?product=pro&type=Jar&version=$version_folder"
   if axel "$url" -o "$jar_name"; then
     echo -e "\n[*] Download complete: $jar_name"
   else
