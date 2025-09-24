@@ -118,41 +118,55 @@ You can easily launch BurpSuitePro from your desktop by creating a launcher:
 
 <h2 align="left">🖥️ Windows Installation</h2>
 
-### 📁 Setup
+### 📁 Step 1: Setup Folder
 
 1. Download the [repository as ZIP](https://github.com/denoyey/BurpsuitePro/archive/refs/heads/main.zip)
-3. Extract **all contents** to **any folder you like** (e.g., `C:\Tools\BurpsuitePro` or your Desktop)
+3. Extract **all contents** to any folder.Example:
+   ```powershell
+   C:\BurpsuitePro
+   ```
+   >⚠️ Do NOT rename the main folder.
 
-### ⚙️ PowerShell Setup
+### ⚙️ Step 2: Install via PowerShell
 
 1. Open **PowerShell** as **Administrator**
-2. Navigate to the folder where you extracted the files
+   - Search powershell, then right-click → Run as administrator
+2. Go to the folder where you extracted the files:
 ```powershell
 cd path\to\BurpsuitePro
 ```
-4. Run the following commands:
-
+3. Run the installer:
 ```powershell
 python run.py
 ```
 
-### 🎨 Change Icon
-
-- Right-click `Burp-Suite-Pro.vbs` → **Properties**  
-- Go to **Shortcut** tab → Click **Change Icon**  
-- Select `burp-suite.ico` located in `C:\BurpsuitePro`
-
+### 🚀 What This Script Does
+This script will automatically:
 <br>
+✅ Download and install **JDK 21** (if not installed) <br>
+✅ Download and install **JRE 8** (if not installed) <br>
+✅ Ask for a valid **Burp Suite Pro version** (e.g. 2025.8.5) <br>
+✅ Download Burp `.jar` file from official PortSwigger <br>
+✅ Download the custom **loader** <br>
+✅ Create a clean **.bat** launcher <br>
+✅ Create a **.vbs** launcher for silent execution <br>
+✅ Create a **Desktop Shortcut** + **Start Menu Shortcut** <br>
+✅ Set proper **icon** for easier identification <br>
+✅ Automatically **delete the repo folder** `(C:\BurpsuitePro)` if installed from GitHub <br>
 
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/29830064/230825172-16c9cfba-4bca-46a4-86df-b352a4330b12.png" alt="Icon Setup" width="500"/>
-</div>
+<hr>
 
-### 📂 Add to Start Menu
-
-- Copy the `Burp-Suite-Pro.vbs` file to the following directory:
+### 🎨 Optional: Change Icon (If Needed)
+If the shortcut icon doesn’t appear: <br>
+1. Right-click Burp Suite Pro.lnk on your Desktop
+2. Go to **Properties → Shortcut → Change Icon**
+3. Choose the icon from:
+```makefile
+C:\BurpsuitePro-v<your-version>\logo.ico
 ```
-C:\ProgramData\Microsoft\Windows\Start Menu\Programs\
+Example:
+```text
+C:\BurpsuitePro-v2025.8.5\logo.ico
 ```
 
 ## 🧩 Credits
