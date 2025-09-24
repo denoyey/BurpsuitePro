@@ -53,12 +53,13 @@ if (-not $IsAdmin) {
 
 # Membuat direktori instalasi jika belum ada dan masuk ke direktori
 Write-Host "`n[*] Checking installation directory..."
-$installDir = "C:\BurpsuitePro"
+$installDir = "C:\BurpsuitePro-v$v"
+Write-Host "`n[*] Setting up installation directory: $installDir"
 if (!(Test-Path -Path $installDir)) {
-    Write-Host "`n[*] Creating installation directory: $installDir"
+    Write-Host "`n[*] Creating installation directory..."
     New-Item -ItemType Directory -Path $installDir | Out-Null
 } else {
-    Write-Host "`n[*] Using existing directory: $installDir"
+    Write-Host "`n[*] Directory already exists. Using existing one."
 }
 Set-Location -Path $installDir
 
@@ -168,7 +169,7 @@ Start-Process java.exe -ArgumentList "--add-opens=java.desktop/javax.swing=ALL-U
 
 Write-Host "`n[*] Cleaning up cloned repository directory (if applicable)..."
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-if ((Split-Path $scriptDir -Leaf) -eq "BurpsuitePro") {
+if ((Split-Path $scriptDir -Leaf) -like "BurpsuitePro*") {
     try {
         Remove-Item -Path $scriptDir -Recurse -Force
         Write-Host "[*] Cloned repo removed successfully."
