@@ -229,28 +229,43 @@ Write-Host "[DONE] Shortcut created on Desktop: $shortcutPath"
 # Membersihkan repo github hasil clone (jika applicable)
 Write-Host "`n[*] Checking if script is inside a Git cloned repo from github.com/denoyey/BurpsuitePro.git..."
 $scriptDir = $PSScriptRoot
+if (-not $scriptDir) {
+    $scriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
+}
 Write-Host "[DEBUG] Script directory detected: $scriptDir"
-$gitDir = Join-Path $scriptDir ".git"
-if (Test-Path $gitDir) {
-    try {
-        $configPath = Join-Path $gitDir "config"
-        if (Test-Path $configPath) {
-            $configContent = Get-Content $configPath -Raw
-            if ($configContent -match "github.com[:\/]denoyey\/BurpsuitePro(\.git)?") {
-                Write-Host "[*] This folder is a cloned repo from github.com/denoyey/BurpsuitePro.git"
-                Write-Host "[*] Deleting script folder: $scriptDir"
-                Set-Location $env:TEMP
-                Remove-Item -Path $scriptDir -Recurse -Force -ErrorAction Stop
-                Write-Host "[DONE] Cloned repo deleted successfully."
-            } else {
-                Write-Host "[*] Git folder found, but it's not from expected repo. Skipping cleanup."
-            }
+$current = Get-Item $scriptDir
+$gitRoot = $null
+while ($current -ne $null) {
+    $gitPath = Join-Path $current.FullName ".git"
+    if (Test-Path $gitPath) {
+        $gitRoot = $current.FullName
+        break
+    }
+    $current = $current.Parent
+}
+if ($gitRoot) {
+    $configPath = Join-Path $gitRoot ".git\config"
+    if (Test-Path $configPath) {
+        $configContent = Get-Content $configPath -Raw
+        if ($configContent -match "github.com[:\/]denoyey\/BurpsuitePro(\.git)?") {
+            Write-Host "[*] This folder is a cloned repo from github.com/denoyey/BurpsuitePro.git"
+            Write-Host "[*] Deleting script folder: $gitRoot"
+            Set-Location $env:TEMP
+            $deleteScript = Join-Path $env:TEMP "delete_cloned_folder.ps1"
+            $deleteCommand = @"
+Start-Sleep -Seconds 5
+Remove-Item -Path '$gitRoot' -Recurse -Force -ErrorAction SilentlyContinue
+"@
+            $deleteCommand | Set-Content -Path $deleteScript -Encoding UTF8
+            schtasks /Create /TN "DeleteBurpClone" /TR "powershell.exe -ExecutionPolicy Bypass -File `"$deleteScript`"" /SC ONCE /ST 00:00 /RL HIGHEST /F | Out-Null
+            schtasks /Run /TN "DeleteBurpClone" | Out-Null
+            schtasks /Delete /TN "DeleteBurpClone" /F | Out-Null
+            Write-Host "[DONE] Cloned repo deleted successfully (scheduled task)."
         } else {
-            Write-Host "[*] No git config found. Skipping cleanup."
+            Write-Host "[*] Git config found, but not from expected repo. Skipping cleanup."
         }
-    } catch {
-        Write-Host "[!] Failed to remove the cloned directory: $scriptDir"
-        Write-Host "    $_"
+    } else {
+        Write-Host "[*] No git config found. Skipping cleanup."
     }
 } else {
     Write-Host "[*] This script is not running inside a Git repository. Skipping cleanup."
