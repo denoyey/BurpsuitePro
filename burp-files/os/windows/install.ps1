@@ -225,52 +225,37 @@ $startMenuShortcut.WindowStyle = 1
 $startMenuShortcut.Save()
 Write-Host "[DONE] Shortcut created on Desktop: $shortcutPath"
 
-# Membersihkan repo github hasil clone (jika applicable)
-Write-Host "`n[*] Checking if script is inside a Git cloned repo from github.com/denoyey/BurpsuitePro.git..."
+# Cek apakah script dijalankan dari repo github.com/denoyey/BurpsuitePro
+Write-Host "`n[*] Checking Git repo source..."
 $scriptDir = $PSScriptRoot
-if (-not $scriptDir) {
-    $scriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-}
-Write-Host "[DEBUG] Script directory detected: $scriptDir"
-$gitRoot = $null
+if (-not $scriptDir) { $scriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent }
 $current = Get-Item $scriptDir
 while ($current -ne $null) {
-    if (Test-Path (Join-Path $current.FullName ".git")) {
-        $gitRoot = $current.FullName
-        break
-    }
-    $current = $current.Parent
-}
-if ($gitRoot) {
-    $configPath = Join-Path $gitRoot ".git\config"
-    if (Test-Path $configPath) {
-        $config = Get-Content $configPath -Raw
+    $gitConfig = Join-Path $current.FullName ".git\config"
+    if (Test-Path $gitConfig) {
+        $config = Get-Content $gitConfig -Raw
         if ($config -match "github.com[:\/]denoyey\/BurpsuitePro(\.git)?") {
-            Write-Host "[*] Valid Git repo found from github.com/denoyey/BurpsuitePro.git"
+            Write-Host "[*] Valid Git repo detected."
             $target = "C:\BurpsuitePro"
             if (Test-Path $target) {
-                Write-Host "[*] Scheduling deletion of: $target"
-                $tmpScript = Join-Path $env:TEMP ("delete_burp_" + [guid]::NewGuid() + ".ps1")
-                @"
-Start-Sleep -s 5
-Remove-Item -Path '$target' -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item -Path '$tmpScript' -Force -ErrorAction SilentlyContinue
-"@ | Set-Content $tmpScript -Encoding UTF8
-                $taskName = "DelBurp_" + [guid]::NewGuid().ToString("N")
-                schtasks /Create /TN $taskName /TR "powershell.exe -ExecutionPolicy Bypass -File `"$tmpScript`"" /SC ONCE /ST 00:00 /RL HIGHEST /F | Out-Null
-                schtasks /Run /TN $taskName | Out-Null
-                schtasks /Delete /TN $taskName /F | Out-Null
-                Write-Host "[DONE] Deletion scheduled."
+                Write-Host "[*] Deleting: $target"
+                try {
+                    Remove-Item -Path $target -Recurse -Force -ErrorAction Stop
+                    Write-Host "[DONE] Folder deleted: $target"
+                } catch {
+                    Write-Host "[!] Failed to delete: $_"
+                }
             } else {
                 Write-Host "[*] Target folder not found: $target"
             }
         } else {
-            Write-Host "[*] Git config found, but not from expected repo. Skipping."
+            Write-Host "[*] Git repo does not match. Skipping."
         }
-    } else {
-        Write-Host "[*] No Git config found. Skipping."
+        break
     }
-} else {
+    $current = $current.Parent
+}
+if (-not $current) {
     Write-Host "[*] Not inside a Git repo. Skipping."
 }
 
