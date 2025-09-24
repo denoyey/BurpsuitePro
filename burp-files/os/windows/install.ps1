@@ -2,7 +2,6 @@
 # Github: github.com/denoyey/BurpsuitePro.git
 # Script ini untuk menginstall Burp Suite Pro di Windows
 
-
 function Download-FileWithProgress {
     param (
         [Parameter(Mandatory = $true)][string]$url,
