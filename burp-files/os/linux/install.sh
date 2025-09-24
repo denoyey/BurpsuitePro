@@ -220,7 +220,7 @@ if [[ -d "$BURP_PREFS_DIR" ]]; then
   echo -e "\n[*] BurpSuitePro already activated. Skipping license loader."
 else
   echo -e "\n[*] Starting license loader..."
-  (java -jar loader.jar) &
+  (java -jar loader.jar)
 fi
 
 echo -e "\n$(printf '%0.s=' {1..70})"
