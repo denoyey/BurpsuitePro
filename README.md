@@ -43,10 +43,10 @@
   - [🔑 Setup License](#-setup-license)
   - [📌 Create Desktop Launcher (XFCE)](#-create-desktop-launcher-xfce)
 - [🖥️ Windows Installation](#%EF%B8%8F-windows-installation)
-  - [📁 Setup](#-setup)
-  - [⚙️ PowerShell Setup](#%EF%B8%8F-powershell-setup)
-  - [🎨 Change Icon](#-change-icon)
-  - [📂 Add to Start Menu](#-add-to-start-menu)
+  - [📁 Step 1: Setup Folder](#-step-1-setup-folder)
+  - [⚙️ Step 2: Install via PowerShell](#%EF%B8%8F-step-2-install-via-powershell)
+  - [🚀 What This Script Does](#-what-this-script-does)
+  - [🎨 Optional: Change Icon (If Needed)](#-optional-change-icon-if-needed)
 - [🙌 Credits](#-credits)
 
 ## 🔍 Overview
