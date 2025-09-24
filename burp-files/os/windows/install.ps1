@@ -51,18 +51,6 @@ if (-not $IsAdmin) {
     exit 1
 }
 
-# Membuat direktori instalasi jika belum ada dan masuk ke direktori
-Write-Host "`n[*] Checking installation directory..."
-$installDir = "C:\BurpsuitePro-v$v"
-Write-Host "`n[*] Setting up installation directory: $installDir"
-if (!(Test-Path -Path $installDir)) {
-    Write-Host "`n[*] Creating installation directory..."
-    New-Item -ItemType Directory -Path $installDir | Out-Null
-} else {
-    Write-Host "`n[*] Directory already exists. Using existing one."
-}
-Set-Location -Path $installDir
-
 # Mengsetting powershell progress display ke silent untuk meningkatkan kecepatan download
 Write-Host "`n[*] Setting PowerShell progress display to silent to improve download speed..."
 $ProgressPreference = 'Continue'
@@ -113,6 +101,15 @@ do {
     $v = $inputVersion -replace '[-,\/]', '.'
     if (Test-BurpVersion $v) {
         Write-Host "`n    [DONE] Version '$v' is valid and available (.jar file found)."
+        $installDir = "C:\BurpsuitePro-v$v"
+        Write-Host "`n[*] Setting up installation directory: $installDir"
+        if (!(Test-Path -Path $installDir)) {
+            Write-Host "`n[*] Creating installation directory..."
+            New-Item -ItemType Directory -Path $installDir | Out-Null
+        } else {
+            Write-Host "`n[*] Directory already exists. Using existing one."
+        }
+        Set-Location -Path $installDir
         break
     } else {
         Write-Host "`n    [ALERT] Version '$v' not found or .jar file missing. Please try again.`n"
