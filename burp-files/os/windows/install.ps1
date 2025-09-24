@@ -248,18 +248,24 @@ if ($gitRoot) {
         $configContent = Get-Content $configPath -Raw
         if ($configContent -match "github.com[:\/]denoyey\/BurpsuitePro(\.git)?") {
             Write-Host "[*] This folder is a cloned repo from github.com/denoyey/BurpsuitePro.git"
-            Write-Host "[*] Deleting script folder: $gitRoot"
-            Set-Location $env:TEMP
-            $deleteScript = Join-Path $env:TEMP "delete_cloned_folder.ps1"
+            Write-Host "[*] Preparing to delete entire cloned folder: $gitRoot"
+            $deleteScript = Join-Path $env:TEMP ("delete_repo_" + [System.Guid]::NewGuid().ToString() + ".ps1")
             $deleteCommand = @"
 Start-Sleep -Seconds 5
-Remove-Item -Path '$gitRoot' -Recurse -Force -ErrorAction SilentlyContinue
+Try {
+    Remove-Item -Path '$gitRoot' -Recurse -Force -ErrorAction Stop
+    Write-Output '[*] Repo folder deleted: $gitRoot'
+} Catch {
+    Write-Output '[!] Failed to delete: $_'
+}
+Remove-Item -Path '$deleteScript' -Force -ErrorAction SilentlyContinue
 "@
             $deleteCommand | Set-Content -Path $deleteScript -Encoding UTF8
-            schtasks /Create /TN "DeleteBurpClone" /TR "powershell.exe -ExecutionPolicy Bypass -File `"$deleteScript`"" /SC ONCE /ST 00:00 /RL HIGHEST /F | Out-Null
-            schtasks /Run /TN "DeleteBurpClone" | Out-Null
-            schtasks /Delete /TN "DeleteBurpClone" /F | Out-Null
-            Write-Host "[DONE] Cloned repo deleted successfully (scheduled task)."
+            $taskName = "Delete_BurpRepo_" + [System.Guid]::NewGuid().ToString("N")
+            schtasks /Create /TN $taskName /TR "powershell.exe -ExecutionPolicy Bypass -File `"$deleteScript`"" /SC ONCE /ST 00:00 /RL HIGHEST /F | Out-Null
+            schtasks /Run /TN $taskName | Out-Null
+            schtasks /Delete /TN $taskName /F | Out-Null
+            Write-Host "[DONE] Scheduled deletion of Git repo: $gitRoot"
         } else {
             Write-Host "[*] Git config found, but not from expected repo. Skipping cleanup."
         }
