@@ -88,7 +88,7 @@ function Test-BurpVersion($v) {
 }
 
 do {
-    $inputVersion = Read-Host "    >> Enter Burp Suite Pro version (e.g. 2025.7.3)"
+    $inputVersion = Read-Host "    >> Enter Burp Suite Pro version (e.g. 2025.8.5)"
     $v = $inputVersion -replace '[-,\/]', '.'
     if (Test-BurpVersion $v) {
         Write-Host "`n    [DONE] Version '$v' is valid and available (.jar file found)."
