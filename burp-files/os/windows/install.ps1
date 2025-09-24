@@ -112,6 +112,20 @@ try {
     exit 1
 }
 
+# Mengecek loader dan logo
+if (!(Test-Path -Path "$installDir\loader.jar")) {
+    Write-Host "`n[*] Downloading loader.jar..."
+    Invoke-WebRequest -Uri "https://github.com/denoyey/BurpsuitePro/raw/refs/heads/main/burp-files/loader/loader.jar" -OutFile "$installDir\loader.jar"
+} else {
+    Write-Host "[*] loader.jar already exists. Skipping download."
+}
+if (!(Test-Path -Path "$installDir\logo.png")) {
+    Write-Host "`n[*] Downloading logo.png..."
+    Invoke-WebRequest -Uri "https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/logo.png?raw=true" -OutFile "$installDir\logo.png"
+} else {
+    Write-Host "[*] logo.png already exists. Skipping download."
+}
+
 # Membuat Burp Suite Pro .bat file
 Write-Host "`n[*] Creating burp.bat file to run Burp Suite Pro"
 $batContent = "java --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:`"loader.jar`" -noverify -jar `"burpsuite_pro_v$v.jar`""
@@ -129,11 +143,16 @@ Set WshShell = Nothing
 Set-Content -Path "Burp-Suite-Pro.vbs" -Value $vbsContent -Encoding ASCII
 Write-Host "[DONE] Burp-Suite-Pro.vbs file has been created."
 
-# Memulai loader dan Burp Suite Pro
-Write-Host "`n[*] Launching Keygen (loader.jar)..."
-Start-Process java.exe -ArgumentList "-jar loader.jar"
-
 Write-Host "`n[*] Launching Burp Suite Pro..."
 Start-Process java.exe -ArgumentList "--add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent=`"loader.jar`" -noverify -jar `"burpsuite_pro_v$v.jar`""
+
+Write-Host "`n[*] Cleaning up cloned repository directory (if applicable)..."
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
+try {
+    Remove-Item -Path $scriptDir -Recurse -Force
+    Write-Host "[*] Cloned repo removed successfully."
+} catch {
+    Write-Host "[!] Failed to remove the cloned directory: $scriptDir"
+}
 
 Read-Host "`nPress Enter to exit..."
