@@ -191,7 +191,7 @@ Write-Host "[DONE] burp.bat created."
 Write-Host "`n[*] Creating Burp-Suite-Pro.vbs (for shortcut only)..."
 $vbsContentShortcut = @"
 Set WshShell = CreateObject("WScript.Shell")
-WshShell.Run "java -javaagent:""$installDir\loader.jar"" -noverify -jar ""$installDir\burpsuite_pro_v$v.jar""", 0
+WshShell.Run """C:\Program Files\Java\jdk-21\bin\java.exe"" --add-opens=java.desktop/javax.swing=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED --add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED -javaagent:""$installDir\loader.jar"" -noverify -jar ""$installDir\burpsuite_pro_v$v.jar""", 0
 Set WshShell = Nothing
 "@
 $vbsPathShortcut = Join-Path $installDir "Burp-Suite-Pro.vbs"
@@ -212,7 +212,7 @@ $desktopShortcut = $shell.CreateShortcut($shortcutPath)
 $desktopShortcut.TargetPath = $targetPath
 $desktopShortcut.WorkingDirectory = $installDir
 $icoPath = "$installDir\logo.ico"
-$desktopShortcut.IconLocation = $icoPath
+$desktopShortcut.IconLocation = "$icoPath,0"
 $desktopShortcut.WindowStyle = 1
 $desktopShortcut.Save()
 $startMenuPath = [Environment]::GetFolderPath("StartMenu")
@@ -221,7 +221,7 @@ $startMenuShortcut = $shell.CreateShortcut($shortcutPathSM)
 $startMenuShortcut.TargetPath = $targetPath
 $startMenuShortcut.WorkingDirectory = $installDir
 $icoPath = "$installDir\logo.ico"
-$desktopShortcut.IconLocation = $icoPath
+$startMenuShortcut.IconLocation = "$icoPath,0"
 $startMenuShortcut.WindowStyle = 1
 $startMenuShortcut.Save()
 Write-Host "[DONE] Shortcut created on Desktop: $shortcutPath"
