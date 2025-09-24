@@ -8,19 +8,13 @@ function Download-FileWithProgress {
         [Parameter(Mandatory = $true)][string]$url,
         [Parameter(Mandatory = $true)][string]$output
     )
-    $client = New-Object System.Net.WebClient
-    $client.Proxy = [System.Net.WebRequest]::DefaultWebProxy
-    $client.Proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
-    $progress = 0
-    $client.DownloadProgressChanged += {
-        $progress = $_.ProgressPercentage
-        Write-Progress -Activity "Downloading $output" -Status "$progress% Complete" -PercentComplete $progress
+    Write-Host "[*] Downloading from $url"
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $output -UseBasicParsing
+    } catch {
+        Write-Host "[!] Download failed: $_"
+        throw
     }
-    $client.DownloadFileAsync($url, $output)
-    while ($client.IsBusy) {
-        Start-Sleep -Milliseconds 200
-    }
-    Write-Progress -Activity "Downloading $output" -Completed
 }
 
 Clear-Host
