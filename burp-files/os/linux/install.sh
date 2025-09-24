@@ -214,16 +214,12 @@ fi
 
 echo -e "\n$(printf '%0.s=' {1..70})"
 
-# Jalankan license loader
+# Jalankan license loader & Burpsuite Pro
 BURP_PREFS_DIR="$HOME/.java/.userPrefs/burp"
 echo -e "\n[*] Removing existing BurpSuitePro license preferences (if any)..."
 rm -rf "$BURP_PREFS_DIR"
 echo -e "\n[*] Starting license loader..."
-java -jar loader.jar
-
-echo -e "\n$(printf '%0.s=' {1..70})"
-
-# Jalankan BurpSuitePro
+java -jar loader.jar &
 echo -e "\n[*] Launching BurpSuitePro..."
 ./burpsuitepro
 
