@@ -232,11 +232,10 @@ if (-not $scriptDir) {
     $scriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 }
 Write-Host "[DEBUG] Script directory detected: $scriptDir"
-$current = Get-Item $scriptDir
 $gitRoot = $null
+$current = Get-Item $scriptDir
 while ($current -ne $null) {
-    $gitPath = Join-Path $current.FullName ".git"
-    if (Test-Path $gitPath) {
+    if (Test-Path (Join-Path $current.FullName ".git")) {
         $gitRoot = $current.FullName
         break
     }
@@ -245,35 +244,34 @@ while ($current -ne $null) {
 if ($gitRoot) {
     $configPath = Join-Path $gitRoot ".git\config"
     if (Test-Path $configPath) {
-        $configContent = Get-Content $configPath -Raw
-        if ($configContent -match "github.com[:\/]denoyey\/BurpsuitePro(\.git)?") {
-            Write-Host "[*] This folder is a cloned repo from github.com/denoyey/BurpsuitePro.git"
-            Write-Host "[*] Preparing to delete entire cloned folder: $gitRoot"
-            $deleteScript = Join-Path $env:TEMP ("delete_repo_" + [System.Guid]::NewGuid().ToString() + ".ps1")
-            $deleteCommand = @"
-Start-Sleep -Seconds 5
-Try {
-    Remove-Item -Path '$gitRoot' -Recurse -Force -ErrorAction Stop
-    Write-Output '[*] Repo folder deleted: $gitRoot'
-} Catch {
-    Write-Output '[!] Failed to delete: $_'
-}
-Remove-Item -Path '$deleteScript' -Force -ErrorAction SilentlyContinue
-"@
-            $deleteCommand | Set-Content -Path $deleteScript -Encoding UTF8
-            $taskName = "Delete_BurpRepo_" + [System.Guid]::NewGuid().ToString("N")
-            schtasks /Create /TN $taskName /TR "powershell.exe -ExecutionPolicy Bypass -File `"$deleteScript`"" /SC ONCE /ST 00:00 /RL HIGHEST /F | Out-Null
-            schtasks /Run /TN $taskName | Out-Null
-            schtasks /Delete /TN $taskName /F | Out-Null
-            Write-Host "[DONE] Scheduled deletion of Git repo: $gitRoot"
+        $config = Get-Content $configPath -Raw
+        if ($config -match "github.com[:\/]denoyey\/BurpsuitePro(\.git)?") {
+            Write-Host "[*] Valid Git repo found from github.com/denoyey/BurpsuitePro.git"
+            $target = "C:\BurpsuitePro"
+            if (Test-Path $target) {
+                Write-Host "[*] Scheduling deletion of: $target"
+                $tmpScript = Join-Path $env:TEMP ("delete_burp_" + [guid]::NewGuid() + ".ps1")
+                @"
+Start-Sleep -s 5
+Remove-Item -Path '$target' -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path '$tmpScript' -Force -ErrorAction SilentlyContinue
+"@ | Set-Content $tmpScript -Encoding UTF8
+                $taskName = "DelBurp_" + [guid]::NewGuid().ToString("N")
+                schtasks /Create /TN $taskName /TR "powershell.exe -ExecutionPolicy Bypass -File `"$tmpScript`"" /SC ONCE /ST 00:00 /RL HIGHEST /F | Out-Null
+                schtasks /Run /TN $taskName | Out-Null
+                schtasks /Delete /TN $taskName /F | Out-Null
+                Write-Host "[DONE] Deletion scheduled."
+            } else {
+                Write-Host "[*] Target folder not found: $target"
+            }
         } else {
-            Write-Host "[*] Git config found, but not from expected repo. Skipping cleanup."
+            Write-Host "[*] Git config found, but not from expected repo. Skipping."
         }
     } else {
-        Write-Host "[*] No git config found. Skipping cleanup."
+        Write-Host "[*] No Git config found. Skipping."
     }
 } else {
-    Write-Host "[*] This script is not running inside a Git repository. Skipping cleanup."
+    Write-Host "[*] Not inside a Git repo. Skipping."
 }
 
 Read-Host "`nPress Enter to exit..."
