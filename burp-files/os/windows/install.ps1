@@ -1,10 +1,30 @@
-#!/bin/bash
+# Requires -RunAsAdministrator
 # Github: github.com/denoyey/BurpsuitePro.git
 # Script ini untuk menginstall Burp Suite Pro di Windows
 
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+function Download-FileWithProgress {
+    param (
+        [Parameter(Mandatory = $true)][string]$url,
+        [Parameter(Mandatory = $true)][string]$output
+    )
+    $client = New-Object System.Net.WebClient
+    $client.Proxy = [System.Net.WebRequest]::DefaultWebProxy
+    $client.Proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
+    $progress = 0
+    $client.DownloadProgressChanged += {
+        $progress = $_.ProgressPercentage
+        Write-Progress -Activity "Downloading $output" -Status "$progress% Complete" -PercentComplete $progress
+    }
+    $client.DownloadFileAsync($url, $output)
+    while ($client.IsBusy) {
+        Start-Sleep -Milliseconds 200
+    }
+    Write-Progress -Activity "Downloading $output" -Completed
+}
 
 Clear-Host
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 for ($i = 0; $i -lt 2; $i++) { Write-Host "" }
 
 $ascii_art = @'
@@ -44,14 +64,14 @@ Set-Location -Path $installDir
 
 # Mengsetting powershell progress display ke silent untuk meningkatkan kecepatan download
 Write-Host "`n[*] Setting PowerShell progress display to silent to improve download speed..."
-$ProgressPreference = 'SilentlyContinue'
+$ProgressPreference = 'Continue'
 
 # Melakukan pengecekan Java JDK 21
 Write-Host "`n[*] Checking for Java Development Kit (JDK) 21..."
-$jdk21 = Get-WmiObject -Class Win32_Product -Filter "Vendor='Oracle Corporation'" | Where-Object { $_.Caption -like "Java(TM) SE Development Kit 21*" }
+$jdk21 = Get-CimInstance -ClassName Win32_Product | Where-Object { $_.Vendor -eq "Oracle Corporation" -and $_.Caption -like "Java(TM) SE Development Kit 21*" }
 if (-not $jdk21) {
     Write-Host "`t[-] JDK 21 not found. Downloading..."
-    Invoke-WebRequest -Uri "https://download.oracle.com/java/21/archive/jdk-21_windows-x64_bin.exe" -OutFile "jdk-21.exe"
+    Download-FileWithProgress -url "https://download.oracle.com/java/21/archive/jdk-21_windows-x64_bin.exe" -output "jdk-21.exe"
     Write-Host "`t[*] Installing JDK 21..."
     Start-Process -FilePath ".\jdk-21.exe" -Wait
     Remove-Item "jdk-21.exe" -Force
@@ -61,10 +81,10 @@ if (-not $jdk21) {
 
 # Melakukan pengecekan JRE 8
 Write-Host "`n[*] Checking for Java Runtime Environment (JRE) 8..."
-$jre8 = Get-WmiObject -Class Win32_Product -Filter "Vendor='Oracle Corporation'" | Where-Object { $_.Caption -like "Java 8 Update *" }
+$jre8 = Get-CimInstance -ClassName Win32_Product | Where-Object { $_.Vendor -eq "Oracle Corporation" -and $_.Caption -like "Java 8 Update *" }
 if (-not $jre8) {
     Write-Host "`t[-] JRE 8 not found. Downloading..."
-    Invoke-WebRequest -Uri "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247947_0ae14417abb444ebb02b9815e2103550" -OutFile "jre-8.exe"
+    Download-FileWithProgress -url "https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247947_0ae14417abb444ebb02b9815e2103550" -output "jre-8.exe"
     Write-Host "`t[*] Installing JRE 8..."
     Start-Process -FilePath ".\jre-8.exe" -Wait
     Remove-Item "jre-8.exe" -Force
@@ -104,7 +124,7 @@ $jarPath = Join-Path -Path (Get-Location) -ChildPath "burpsuite_pro_v$v.jar"
 $downloadUrl = "https://portswigger-cdn.net/burp/releases/download?product=pro&version=$v&type=Jar"
 
 try {
-    Invoke-WebRequest -Uri $downloadUrl -OutFile $jarPath -UseBasicParsing
+    Download-FileWithProgress -url $downloadUrl -output $jarPath
     Write-Host "`n[DONE] Download complete: $jarPath"
 } catch {
     Write-Host "`n[ALERT] Failed to download version '$v'. Check the version and your internet connection."
@@ -115,13 +135,13 @@ try {
 # Mengecek loader dan logo
 if (!(Test-Path -Path "$installDir\loader.jar")) {
     Write-Host "`n[*] Downloading loader.jar..."
-    Invoke-WebRequest -Uri "https://github.com/denoyey/BurpsuitePro/raw/refs/heads/main/burp-files/loader/loader.jar" -OutFile "$installDir\loader.jar"
+    Download-FileWithProgress -url "https://github.com/denoyey/BurpsuitePro/raw/refs/heads/main/burp-files/loader/loader.jar" -output "$installDir\loader.jar"
 } else {
     Write-Host "[*] loader.jar already exists. Skipping download."
 }
 if (!(Test-Path -Path "$installDir\logo.png")) {
     Write-Host "`n[*] Downloading logo.png..."
-    Invoke-WebRequest -Uri "https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/logo.png?raw=true" -OutFile "$installDir\logo.png"
+    Download-FileWithProgress -url "https://github.com/denoyey/BurpsuitePro/blob/main/burp-files/img/logo.png?raw=true" -output "$installDir\logo.png"
 } else {
     Write-Host "[*] logo.png already exists. Skipping download."
 }
@@ -148,11 +168,15 @@ Start-Process java.exe -ArgumentList "--add-opens=java.desktop/javax.swing=ALL-U
 
 Write-Host "`n[*] Cleaning up cloned repository directory (if applicable)..."
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-try {
-    Remove-Item -Path $scriptDir -Recurse -Force
-    Write-Host "[*] Cloned repo removed successfully."
-} catch {
-    Write-Host "[!] Failed to remove the cloned directory: $scriptDir"
+if ((Split-Path $scriptDir -Leaf) -eq "BurpsuitePro") {
+    try {
+        Remove-Item -Path $scriptDir -Recurse -Force
+        Write-Host "[*] Cloned repo removed successfully."
+    } catch {
+        Write-Host "[!] Failed to remove the cloned directory: $scriptDir"
+    }
+} else {
+    Write-Host "[*] Skipping folder cleanup (not a cloned repo)."
 }
 
 Read-Host "`nPress Enter to exit..."
