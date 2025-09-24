@@ -25,7 +25,7 @@ echo -e "\n[*] Check the latest STABLE version at:"
 echo -e "    https://portswigger.net/burp/releases/professional/latest"
 echo -e "\n[!] Please use only a STABLE version (not Early Adopter or Beta)\n"
 while true; do
-  read -p "    >> Enter version (e.g., 2025.8.4): " version_input
+  read -p "    >> Enter version (e.g., 2025.8.5): " version_input
   version_clean="${version_input//[\/.]/-}"
   version_folder="${version_input//\//.}"
   latest_stable="https://portswigger.net/burp/releases/professional-community-$version_clean?requestededition=professional"
