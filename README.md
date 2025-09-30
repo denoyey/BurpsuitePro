@@ -166,7 +166,7 @@ C:\BurpsuitePro-v<your-version>\logo.ico
 ```
 Example:
 ```text
-C:\BurpsuitePro-v2025.8.5\logo.ico
+C:\BurpsuitePro-v2025.8.6\logo.ico
 ```
 
 ## 🧩 Credits
