@@ -145,7 +145,7 @@ This script will automatically:
 <br>
 ✅ Download and install **JDK 21** (if not installed) <br>
 ✅ Download and install **JRE 8** (if not installed) <br>
-✅ Ask for a valid **Burp Suite Pro version** (e.g. 2025.8.6) <br>
+✅ Ask for a valid **Burp Suite Pro version** (e.g. 2025.8.7) <br>
 ✅ Download Burp `.jar` file from official PortSwigger <br>
 ✅ Download the custom **loader** <br>
 ✅ Create a clean **.bat** launcher <br>
