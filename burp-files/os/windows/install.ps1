@@ -90,7 +90,7 @@ Write-Host "    https://portswigger.net/burp/releases/professional/latest"
 Write-Host "[ALERT] Use only STABLE versions (.jar)`n"
 
 do {
-    $inputVersion = Read-Host "    >> Enter Burp Suite Pro version (e.g. 2025.9.5)"
+    $inputVersion = Read-Host "    >> Enter Burp Suite Pro version (e.g. 2025.10.5)"
     $v = $inputVersion -replace '[-,\/]', '.'
     if (Test-BurpVersion $v) {
         Write-Host "`n    [DONE] Version '$v' is valid and available (.jar file found)."
