@@ -145,7 +145,7 @@ This script will automatically:
 <br>
 ✅ Download and install **JDK 21** (if not installed) <br>
 ✅ Download and install **JRE 8** (if not installed) <br>
-✅ Ask for a valid **Burp Suite Pro version** (e.g. 2025.10.7) <br>
+✅ Ask for a valid **Burp Suite Pro version** (e.g. 2025.11.6) <br>
 ✅ Download Burp `.jar` file from official PortSwigger <br>
 ✅ Download the custom **loader** <br>
 ✅ Create a clean **.bat** launcher <br>
@@ -166,7 +166,7 @@ C:\BurpsuitePro-v<your-version>\logo.ico
 ```
 Example:
 ```text
-C:\BurpsuitePro-v2025.10.7\logo.ico
+C:\BurpsuitePro-v2025.11.6\logo.ico
 ```
 
 ## 🧩 Credits
