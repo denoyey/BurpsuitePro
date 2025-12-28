@@ -203,6 +203,7 @@ Terminal=false
 Type=Application
 Categories=Development;Security;
 StartupNotify=true
+StartupWMClass=burp-StartBurp
 EOF
     chmod +x "$DESKTOP_FILE"
     echo -e "\n[*] Desktop launcher created at $DESKTOP_FILE"
